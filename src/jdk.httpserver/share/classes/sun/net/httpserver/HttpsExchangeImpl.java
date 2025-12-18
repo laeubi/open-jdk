@@ -117,8 +117,8 @@ class HttpsExchangeImpl extends HttpsExchange {
         return impl.getPrincipal();
     }
 
-    public void upgrade(int responseCode, HttpUpgradeHandler handler) throws IOException {
-        impl.upgrade(responseCode, handler);
+    public void upgrade(HttpUpgradeHandler handler) throws IOException {
+        impl.upgrade(handler);
     }
 
     ExchangeImpl getExchangeImpl() {

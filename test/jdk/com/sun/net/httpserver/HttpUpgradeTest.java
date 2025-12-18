@@ -90,7 +90,7 @@ public class HttpUpgradeTest {
                 responseHeaders.set("Connection", "Upgrade");
                 
                 // Perform upgrade
-                exchange.upgrade(101, new EchoUpgradeHandler());
+                exchange.upgrade(new EchoUpgradeHandler());
             } else {
                 // Not an upgrade request
                 exchange.sendResponseHeaders(400, -1);

@@ -415,7 +415,7 @@ class ExchangeImpl {
         this.principal = principal;
     }
 
-    void upgrade(int rCode, HttpUpgradeHandler handler) throws IOException {
+    void upgrade(HttpUpgradeHandler handler) throws IOException {
         if (handler == null) {
             throw new NullPointerException("handler cannot be null");
         }
@@ -424,10 +424,10 @@ class ExchangeImpl {
         }
         this.upgraded = true;
         this.upgradeHandler = handler;
-        this.rcode = rCode;
+        this.rcode = 101;
         
-        // Send upgrade response
-        String statusLine = "HTTP/1.1 " + rCode + Code.msg(rCode) + "\r\n";
+        // Send upgrade response with 101 Switching Protocols
+        String statusLine = "HTTP/1.1 101" + Code.msg(101) + "\r\n";
         ByteArrayOutputStream tmpout = new ByteArrayOutputStream();
         tmpout.write(bytes(statusLine, 0), 0, statusLine.length());
         rspHdrs.set("Date", FORMATTER.format(Instant.now()));
@@ -437,7 +437,7 @@ class ExchangeImpl {
         ros.flush();
         sentHeaders = true;
         
-        server.logReply(rCode, req.requestLine(), null);
+        server.logReply(101, req.requestLine(), null);
     }
 
     boolean isUpgraded() {
