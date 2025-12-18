@@ -113,6 +113,10 @@ class HttpExchangeImpl extends HttpExchange {
         return impl.getPrincipal();
     }
 
+    public void upgrade(int responseCode, HttpUpgradeHandler handler) throws IOException {
+        impl.upgrade(responseCode, handler);
+    }
+
     ExchangeImpl getExchangeImpl() {
         return impl;
     }
